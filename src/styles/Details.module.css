@@ -1,0 +1,152 @@
+
+.details{
+    width: 26%;
+}
+.top{
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+.icon{
+    padding: 10px;
+    font-size: 30px;
+    background-color: #2a363b;
+    color: white;
+    border-radius: 50%;
+    margin-left: 20px;
+    cursor: pointer;
+}
+.profile{
+    display: flex;
+    background-color: #2a363b;
+    color: rgb(255, 255, 255);
+    align-items: center;
+    padding: 10px 90px 10px 30px;
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
+}
+.profile >img{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+.dot{
+    background-color: rgb(255, 149, 0);
+    color: rgb(255, 149, 0);
+    border-radius: 50%;
+    padding: 7px;
+    position: absolute;
+    top: 28px;
+    right: 330px;
+}
+
+.info>h1{
+ margin: 0;
+ font-size: 15px;
+}
+.info>p{
+    margin: 0;
+    font-size: 13px;
+}
+.today{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+    margin-bottom: 50px;
+
+}
+.todayinfo:first-child>h1{
+    text-align: center;
+    font-size: 25px;
+    margin: 0;
+    padding: 10px 20px;
+    background-color: blueviolet;
+    border-radius: 50%;
+}
+.todayinfo:nth-child(2)>h1{
+    text-align: center;
+    margin: 0;
+    font-size: 25px;
+    padding: 10px 15px;
+    background-color: blueviolet;
+    border-radius: 50%;
+}
+.todayinfo:last-child>h1{
+    text-align: center;
+    margin: 0;
+    font-size: 25px;
+    padding: 10px 0px;
+}
+.todayinfo>h2{
+    margin: 0;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.activities{
+    background-color: #2a363b;
+    color: white;
+    width: 100%;
+    border-radius:10px;
+    width: 93%;
+}
+.activities>h1{
+    font-size: 22px;
+    margin: 0;
+    padding: 20px 40px 20px  40px;
+
+}
+
+.week{
+    display: flex;
+    justify-content: end;
+    padding: 0 40px;
+}
+
+.week > button{
+    border: none;
+    background-color: inherit;
+    margin-left: 30px;
+    font-size: 15px;
+    margin-bottom: 30px;
+    padding-bottom: 3px;
+    cursor: pointer;
+    color: white;
+}
+.grafic{
+    display: flex;
+    padding-bottom: 45px;
+}
+
+.numbers{
+    width: 100px;
+}
+.numbers>h1{
+    margin: 0;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 9px 40px 12px 40px;
+}
+.days{
+    font-size: 11px;
+    margin-left: 15px;
+}
+.bar{
+    height: 100%;
+    width: 8px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+.progress{
+    background-color: blueviolet;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    height: 50%;
+    cursor: pointer;
+}
