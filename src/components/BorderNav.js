@@ -3,31 +3,15 @@ import styles from "../styles/BorderNav.module.css";
 import { FaSort } from "react-icons/fa";
 import axios from "axios";
 import { format } from "date-fns";
+import AddUser from "./AddUser";
 
-const BorderNav = () => {
-  const [allGuests, setAllGuests] = useState([]); 
-  const [selectedCategory, setSelectedCategory] = useState("arrivals");
-  const [sortConfig, setSortConfig] = useState({ field: null, direction: 'ascending' });
-  const [loading, setLoading] = useState(false);
+const BorderNav = ({loading, fetchAllGuests, allGuests}) => {
+  // const [allGuests, setAllGuests] = useState([]); 
+  const [selectedCategory, setSelectedCategory] = useState("allguests");
+  const [sortConfig, setSortConfig] = useState({ field: null, direction: 'ascending' });;
   const [error, setError] = useState(null);
-
-  // Fetch all guests from the server
-  const fetchAllGuests = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get("http://localhost:5000/guests");
-      setAllGuests(response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      setError("Failed to load data.");
-    }
-    setLoading(false);
-  };
-
-  // Load guests on initial render
-  useEffect(() => {
-    fetchAllGuests();
-  }, []);
+  const [add, setAdd] = useState(false);
+  const [rowData, setRowData] = useState({});
 
   // Switch category when a navigation button is clicked
   const handleNav = (category) => {
@@ -38,7 +22,7 @@ const BorderNav = () => {
   const sortedData = useMemo(() => {
     // Filter by category if not "allguests"
     let filteredGuests = selectedCategory === "allguests" ? allGuests : allGuests.filter(guest => guest.category === selectedCategory);
-
+    console.log("It was here")
     // Sort based on current sorting configuration
     if (sortConfig.field !== null) {
       filteredGuests.sort((a, b) => {
@@ -63,10 +47,18 @@ const BorderNav = () => {
     }
     setSortConfig({ field, direction });
   };
-
+  const handleClickRow =(row)=>{
+    console.log(row)
+    setAdd(!add)
+    setRowData(row);
+  }
+  const handleAddUser =()=>{
+    setAdd(!add)
+  }
   return (
     <>
       {/* Navigation Buttons */}
+
       <div className={styles.nav}>
         {["allguests", "arrivals", "departures", "inhouse"].map((category) => (
           <button
@@ -78,7 +70,6 @@ const BorderNav = () => {
           </button>
         ))}
       </div>
-
       {/* Table displaying guest information */}
       <div className={styles.tableWrapper}>
         <table className={styles.table}>
@@ -93,7 +84,7 @@ const BorderNav = () => {
           </thead>
           <tbody>
             {sortedData.map((item) => (
-              <tr key={item.id}>
+              <tr onClick={()=>handleClickRow(item)} key={item.id}>
                 <td>{item.fullName}</td>
                 <td>{item.roomNumber}</td>
                 <td>{format(new Date(item.checkInDate), "yyyy-MM-dd")}</td>
@@ -103,7 +94,7 @@ const BorderNav = () => {
           </tbody>
         </table>
       </div>
-
+      {add && <AddUser fetchAllGuests={fetchAllGuests} rowData={rowData} handleAddUser={handleAddUser} postState={false}/>}
       {/* Loading and Error Handling */}
       {loading && <p>Loading data...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}

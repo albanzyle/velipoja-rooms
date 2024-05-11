@@ -2,7 +2,7 @@
     /* padding: 20px; */
     width: 20%;
     height: 100vh;
-    background-color:#2c2d34;
+    background-color:#2a363b;
     color: white;
     display: flex;
     flex-direction: column;
@@ -22,7 +22,7 @@
     border-bottom-right-radius: 40px;
 }
 .nav>div:hover{
-    background-color: #8a2be2;
+    background-color: #892be24e;
     color: white;
     cursor: pointer;
 }

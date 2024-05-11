@@ -21,7 +21,7 @@ const guestData = [
     { day: 'Sat', value: Math.floor(Math.random() * 26) },
     { day: 'Sun', value: Math.floor(Math.random() * 26) },
   ];
-const Details =()=>{
+const Details =({allGuests})=>{
     const [notification, setNotification] = useState(true);
     const [modal, setModal] = useState({
         isVisible: false,
@@ -30,7 +30,24 @@ const Details =()=>{
       });
     const [data,setData] = useState(weeklyData);
     const [isRevenue, setIsRevenue] =useState(true);
+    // Helper function to check if a date is today
+    const isToday = (date) => {
+        const today = new Date();
+        return date.getDate() === today.getDate() &&
+          date.getMonth() === today.getMonth() &&
+          date.getFullYear() === today.getFullYear();
+      };
+      
 
+    const bookingsToday = allGuests.filter(guest => isToday(new Date(guest.checkInDate))).length;
+    const guestsToday = bookingsToday * 4; // Each booking is for 4 guests
+    const revenueToday = allGuests.reduce((total, guest) => {
+      const checkInDate = new Date(guest.checkInDate);
+      const departureDate = new Date(guest.departureDate);
+      const numberOfNights = (departureDate - checkInDate) / (1000 * 60 * 60 * 24);
+      return total + numberOfNights * guest.pricePerNight;
+    }, 0);
+    
     const handleClick =(e)=>{
         const name = e.target.name;
         if(name === 'revenue'){
@@ -50,8 +67,6 @@ const Details =()=>{
           position: { top: rect.top -15, left: rect.left + rect.width / 2 } 
         });
       };
-      
-    
       const closeModal = () => {
         setModal({ isVisible: false, content: '' });
       };
@@ -76,15 +91,15 @@ const Details =()=>{
                 <h1>Today's Activities</h1>
                 <div className={styles.today}>
                     <span className={styles.todayinfo}>
-                        <h1>5</h1>
+                        <h1>{bookingsToday}</h1>
                         <h2>Booked</h2>
                     </span>
                     <span className={styles.todayinfo}>
-                        <h1>22</h1>
+                        <h1>{guestsToday}</h1>
                         <h2>Guest</h2>
                     </span>
                     <span className={styles.todayinfo}>
-                        <h1>$1000</h1>
+                        <h1>${revenueToday}</h1>
                         <h2>Revenue</h2>
                     </span>
                 </div>

@@ -68,7 +68,7 @@ app.post('/guests', async (req, res) => {
     const { fullName, roomNumber, pricePerNight, checkInDate, departureDate, description } = req.body;
 
     // Validate required fields
-    if (!fullName || !roomNumber || !pricePerNight || !checkInDate || !departureDate) {
+    if (!fullName || !roomNumber || pricePerNight<0 || !checkInDate || !departureDate) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
@@ -88,6 +88,54 @@ app.post('/guests', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+// PUT endpoint to edit a guest
+app.put('/guests/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { fullName, roomNumber, pricePerNight, checkInDate, departureDate, description } = req.body;
+
+    // Validate required fields
+    if (!fullName || !roomNumber || pricePerNight<0 || !checkInDate || !departureDate) {
+      console.log(fullName,roomNumber, pricePerNight, checkInDate, departureDate)
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    // Update guest record
+    const updatedGuest = await Guest.update({
+      fullName,
+      roomNumber,
+      pricePerNight,
+      checkInDate,
+      departureDate,
+      description,
+    }, {
+      where: { id }
+    });
+
+    // Respond with the updated guest record
+    res.status(200).json(updatedGuest);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// DELETE endpoint to delete a guest
+app.delete('/guests/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Delete guest record
+    const deletedGuest = await Guest.destroy({
+      where: { id }
+    });
+
+    // Respond with a message
+    res.status(200).json({ message: 'Guest deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 // Server setup
 const PORT = process.env.PORT || 5000;

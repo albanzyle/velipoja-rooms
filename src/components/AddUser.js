@@ -3,16 +3,30 @@ import styles from "../styles/AddUser.module.css";
 import { RxCross1 } from "react-icons/rx";
 import axios from "axios";
 
-const AddUser = ({ handleAddUser }) => {
-  const [formData, setFormData] = useState({
-    fullName: "",
-    roomNumber: "",
-    pricePerNight: "",
-    checkInDate: "",
-    departureDate: "",
-    description: ""
-  });
+// Function to format a date
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
 
+const AddUser = ({ fetchAllGuests, rowData={}, handleAddUser, postState=false}) => {
+
+  const formattedCheckInDate = rowData.checkInDate ? formatDate(rowData.checkInDate) : '';
+  const formattedDepartureInDate = rowData.checkInDate ? formatDate(rowData.departureDate) : '';
+
+
+  const [formData, setFormData] = useState({
+    fullName: rowData.fullName || '',
+    roomNumber: rowData.roomNumber || '',
+    pricePerNight: rowData.pricePerNight || 0,
+    checkInDate: formattedCheckInDate || '',
+    departureDate: formattedDepartureInDate || '',
+    description: rowData.description || ''
+  });
+ 
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -23,10 +37,7 @@ const AddUser = ({ handleAddUser }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Make a POST request to your backend API to add a new guest
       await axios.post("http://localhost:5000/guests", formData);
-      
-      // Reset the form data after successful submission
       setFormData({
         fullName: "",
         roomNumber: "",
@@ -35,29 +46,64 @@ const AddUser = ({ handleAddUser }) => {
         departureDate: "",
         description: ""
       });
-
+      fetchAllGuests();
+      handleRemove();
       console.log("Successfully added new guest");
     } catch (error) {
       console.error("Error adding guest:", error);
     }
   };
-
   const handleRemove = () => {
     handleAddUser();
   };
-
   const handleStopPropagation = (e) => {
     e.stopPropagation();
   };
 
+  const handleEdit = async (e) =>{
+    e.preventDefault();
+    try{
+      const requestOptions = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      };
+      await fetch(`http://localhost:5000/guests/${rowData.id}`, requestOptions)
+          .then(response => response.json())
+          .then(data => console.log(data));
+      handleAddUser();
+      fetchAllGuests();
+    }
+    catch(error){
+      console.error("Error adding guest:", error);
+    }
+  }
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    try {
+      const requestOptions = {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      };
+      await fetch(`http://localhost:5000/guests/${rowData.id}`, requestOptions)
+          .then(response => response.json())
+          .then(data => console.log(data));
+      fetchAllGuests();
+      handleAddUser();
+    }
+    catch(error) {
+      console.error("Error deleting guest:", error);
+    }
+  }
   return (
     <div onClick={handleRemove} className={styles.background}>
       <RxCross1 className={styles.icon} />
       <form
         onClick={handleStopPropagation}
         className={styles.form}
-        onSubmit={handleSubmit}
       >
+        {!postState && <h1 className={styles.details}>Details</h1>}
         <div className={styles.formGroup}>
           <label htmlFor="fullName">Full Name:</label>
           <input
@@ -129,7 +175,11 @@ const AddUser = ({ handleAddUser }) => {
           />
         </div>
 
-        <button type="submit" className={styles.submitButton}>Add Guest</button>
+        {postState && <button onClick={handleSubmit} className={styles.submitButton}>Add Guest</button>}
+        {!postState && <div className={styles.divBtns}>
+          <button onClick={handleEdit} className={styles.editButton}>Edit</button>
+          <button onClick={handleDelete} className={styles.deleteButton}>Delete</button>
+        </div>}
       </form>
     </div>
   );

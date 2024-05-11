@@ -10,9 +10,7 @@ import styles from '../styles/Nav.module.css'
 const Nav =()=>{
     return(
         <div className={styles.nav}>
-            
             <h1><SiHiltonhotelsandresorts className={styles.icon1}/>Velipoja Rooms</h1>
-
             <div className={styles.option} style={{background: "#8a2be2"}}>
                 <BiHomeAlt2 className={styles.icon}/>
                 <h1>Dashboard</h1>
@@ -21,7 +19,6 @@ const Nav =()=>{
                 <IoCalendarOutline className={styles.icon}/>
                 <h1>Reservation</h1>
             </div>
-
             <div className={styles.option}>
                 <MdOutlineRoomService className={styles.icon}/>
                 <h1>Rooms</h1>
