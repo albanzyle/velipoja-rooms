@@ -21,13 +21,13 @@
     overflow-y: scroll;
     scrollbar-width: none;
     margin-top: 10px;
-
+    box-shadow: 0 0 1px white;
 }
   
 .table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #2a363b;
+    background-color: #212121;
     color: white;
     border-radius: 2px;
 }
@@ -43,11 +43,11 @@
 .table> thead{
     position: sticky;
     top: 0;
-    background-color: #2a363b;
+    background-color: #343434;
     color: white;
 }
 thead>tr:hover{
-    background-color: #2a363b;
+    background-color: #343434;
     color: white;
 }
 

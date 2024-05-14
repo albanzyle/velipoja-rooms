@@ -2,11 +2,12 @@
     /* padding: 20px; */
     width: 20%;
     height: 100vh;
-    background-color:#2a363b;
+    background-color:#212121;
     color: white;
     display: flex;
     flex-direction: column;
     color: rgb(65, 65, 65);
+    box-shadow: 0 0 1px white;
 }
 
 .nav>div{

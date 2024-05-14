@@ -88,18 +88,14 @@ const Details =({allGuests})=>{
                 </div>
             </div>
             <div className={styles.activities}>
-                <h1>Today's Activities</h1>
+                <h1>Overall Activities</h1>
                 <div className={styles.today}>
                     <span className={styles.todayinfo}>
-                        <h1>{bookingsToday}</h1>
-                        <h2>Booked</h2>
+                        <h1>&euro;{bookingsToday}</h1>
+                        <h2>Tax Paied</h2>
                     </span>
                     <span className={styles.todayinfo}>
-                        <h1>{guestsToday}</h1>
-                        <h2>Guest</h2>
-                    </span>
-                    <span className={styles.todayinfo}>
-                        <h1>${revenueToday}</h1>
+                        <h1>&euro;{revenueToday}</h1>
                         <h2>Revenue</h2>
                     </span>
                 </div>

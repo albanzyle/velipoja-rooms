@@ -88,7 +88,7 @@ const BorderNav = ({loading, fetchAllGuests, allGuests}) => {
                 <td>{item.fullName}</td>
                 <td>{item.roomNumber}</td>
                 <td>{format(new Date(item.checkInDate), "yyyy-MM-dd")}</td>
-                <td>{item.pricePerNight}$</td>
+                <td>{item.pricePerNight}&euro;</td>
               </tr>
             ))}
           </tbody>

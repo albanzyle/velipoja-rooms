@@ -3,7 +3,6 @@
     width: 26%;
 }
 .top{
-    /* background-color: aqua; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -12,20 +11,22 @@
 .icon{
     padding: 10px;
     font-size: 30px;
-    background-color: #2a363b;
+    background-color: #212121;
     color: white;
     border-radius: 50%;
     margin-left: 20px;
     cursor: pointer;
+    box-shadow: 0 0 2px white;
 }
 .profile{
     display: flex;
-    background-color: #2a363b;
+    background-color: #212121;
     color: rgb(255, 255, 255);
     align-items: center;
     padding: 10px 90px 10px 30px;
     border-top-left-radius: 40px;
     border-bottom-left-radius: 40px;
+    box-shadow: 0 0 2px white;
 }
 .profile >img{
     border-radius: 50%;
@@ -59,27 +60,19 @@
     margin-bottom: 50px;
 
 }
-.todayinfo:first-child>h1{
+.todayinfo:first-child{
+    color: rgb(255, 0, 0);
+}
+.todayinfo:last-child{
+    color: rgb(0, 255, 0);
+    /* margin-left: 50px; */
+}
+.todayinfo>h1{
     text-align: center;
     font-size: 25px;
     margin: 0;
     padding: 10px 20px;
-    background-color: blueviolet;
     border-radius: 50%;
-}
-.todayinfo:nth-child(2)>h1{
-    text-align: center;
-    margin: 0;
-    font-size: 25px;
-    padding: 10px 20px;
-    background-color: blueviolet;
-    border-radius: 50%;
-}
-.todayinfo:last-child>h1{
-    text-align: center;
-    margin: 0;
-    font-size: 25px;
-    padding: 10px 0px;
 }
 .todayinfo>h2{
     margin: 0;
@@ -90,11 +83,12 @@
 }
 
 .activities{
-    background-color: #2a363b;
+    background-color: #212121;
     color: white;
     width: 100%;
     border-radius:10px;
     width: 93%;
+    box-shadow: 0 0 1px white;
 }
 .activities>h1{
     font-size: 22px;
